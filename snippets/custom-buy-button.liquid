@@ -1,0 +1,48 @@
+<div data-variant-id="{{ product.first_available_variant.id }}" data-product-url="{{ product.url }}">
+  <button type="button" class="custom-add">custom buy button</button>
+</div>
+
+<div id="CustomSectionContainer"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const variantId = document.querySelector('[data-variant-id]').dataset.variantId;
+    const productUrl = document.querySelector('[data-product-url]').dataset.productUrl;
+
+    document.querySelector('.custom-add').addEventListener('click', async function () {
+        
+      await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: Number(variantId),
+          quantity: 1,
+        }),
+      });
+
+      const responseText = await fetch(
+        `${productUrl}?section_id=custom-section`
+      ).then(res => res.text());
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(responseText, 'text/html');
+
+      const shopifySection = doc.querySelector('.shopify-section');
+      const sectionElement =  shopifySection.querySelector('#custom-section') 
+
+      if (sectionElement) {
+        document.querySelector('#CustomSectionContainer').innerHTML = '';
+        document.querySelector('#CustomSectionContainer').appendChild(sectionElement);
+      }
+    });
+  });
+</script>
+
+
+
+
+// questionando sobre async e await | codigo sincrono ou assincrono
+// fetch | request | response
+// API | endpoints | 

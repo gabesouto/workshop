@@ -1,0 +1,31 @@
+<div id="custom-section">
+
+{% liquid
+ assign product_from_metafield = product.metafields.custom.product_from_metafield
+%}
+    <h1>{{ product_from_metafield.title }}</h1>
+    <p>{{ product.description }}</p>
+    <p>{{ product.price }}</p>
+    <p>{{ product.compare_at_price }}</p>
+    <p>{{ product.inventory_quantity }}</p>
+    <p>{{ product.inventory_policy }}</p>
+    <p>{{ product.inventory_management }}</p>
+    <p>{{ product.sku }}</p>
+    <p>{{ product.barcode }}</p>
+    <p>{{ product.weight }}</p>
+    <p>{{ product.weight_unit }}</p>
+    <p>{{ product.taxable }}</p>
+</div>
+
+{% schema %}
+{
+    "name": "Custom Section",
+    "settings": [],
+    "blocks": [],
+    "presets": [
+        {
+            "name": "Custom Section"
+        }
+    ]
+}
+{% endschema %}
